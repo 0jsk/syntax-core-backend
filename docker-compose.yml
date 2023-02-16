@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  syntax-core-database:
+    container_name: syntax-core-database
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    env_file:
+      - config/.env.defaults
+      - config/.env
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:6
+    ports:
+      - "5050:5050"
+    env_file:
+      - config/.env.defaults
+      - config/.env
+    depends_on:
+      syntax-core-database:
+        condition: service_healthy
