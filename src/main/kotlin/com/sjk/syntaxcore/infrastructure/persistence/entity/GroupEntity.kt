@@ -14,7 +14,7 @@ import org.hibernate.Hibernate
  */
 @Entity
 @Table(name = "groups")
-data class Group(
+data class GroupEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
@@ -28,7 +28,7 @@ data class Group(
         joinColumns = [JoinColumn(name = "groups_id")],
         inverseJoinColumns = [JoinColumn(name = "subject_id")],
     )
-    val subjects: List<Subject> = listOf(),
+    val subjects: List<SubjectEntity> = listOf(),
 
     @ManyToMany
     @JoinTable(
@@ -36,7 +36,7 @@ data class Group(
         joinColumns = [JoinColumn(name = "groups_id")],
         inverseJoinColumns = [JoinColumn(name = "instructor_id")],
     )
-    val instructors: List<Instructor> = listOf(),
+    val instructors: List<InstructorEntity> = listOf(),
 
     @ManyToMany
     @JoinTable(
@@ -44,12 +44,12 @@ data class Group(
         joinColumns = [JoinColumn(name = "groups_id")],
         inverseJoinColumns = [JoinColumn(name = "student_id")],
     )
-    val students: List<Student> = listOf(),
+    val students: List<StudentEntity> = listOf(),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
-        other as Group
+        other as GroupEntity
 
         return id == other.id
     }

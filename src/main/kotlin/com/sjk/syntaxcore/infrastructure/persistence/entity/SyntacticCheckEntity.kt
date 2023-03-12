@@ -14,7 +14,7 @@ import org.hibernate.Hibernate
  */
 @Entity
 @Table(name = "syntactic_check")
-data class SyntacticCheck(
+data class SyntacticCheckEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
@@ -28,7 +28,7 @@ data class SyntacticCheck(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
-        other as SyntacticCheck
+        other as SyntacticCheckEntity
 
         return id == other.id
     }

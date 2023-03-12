@@ -19,7 +19,7 @@ import org.hibernate.Hibernate
  */
 @Entity
 @Table(name = "paper")
-data class Paper(
+data class PaperEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
@@ -32,28 +32,28 @@ data class Paper(
 
     @ManyToOne
     @JoinColumn(name = "subject_id", referencedColumnName = "id", nullable = false)
-    val subject: Subject,
+    val subject: SubjectEntity,
 
     @ManyToOne
     @JoinColumn(name = "instructor_id", referencedColumnName = "id", nullable = false)
-    val instructor: Instructor,
+    val instructor: InstructorEntity,
 
     @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "id", nullable = false)
-    val student: Student,
+    val student: StudentEntity,
 
     @OneToOne
     @JoinColumn(name = "file_id", referencedColumnName = "id", nullable = false)
-    val file: File,
+    val file: FileEntity,
 
     @OneToMany
     @JoinColumn(name = "syntactic_check_id", referencedColumnName = "id", nullable = false)
-    val checks: List<SyntacticCheck> = listOf(),
+    val checks: List<SyntacticCheckEntity> = listOf(),
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
-        other as Paper
+        other as PaperEntity
 
         return id == other.id
     }

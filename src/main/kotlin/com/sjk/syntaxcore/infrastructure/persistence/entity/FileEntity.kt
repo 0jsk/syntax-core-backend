@@ -15,7 +15,7 @@ import org.hibernate.Hibernate
  */
 @Entity
 @Table(name = "file")
-data class File(
+data class FileEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
@@ -28,16 +28,16 @@ data class File(
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    var author: Student? = null,
+    var author: StudentEntity? = null,
 
     @ManyToOne
     @JoinColumn(name = "groups_id")
-    val group: Group,
+    val group: GroupEntity,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
-        other as File
+        other as FileEntity
 
         return id == other.id
     }

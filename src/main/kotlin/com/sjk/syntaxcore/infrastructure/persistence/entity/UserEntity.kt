@@ -6,7 +6,7 @@ import org.hibernate.Hibernate
 
 @Entity
 @Table(name = "users")
-data class User(
+data class UserEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
@@ -22,15 +22,15 @@ data class User(
     val role: Role,
 
     @OneToOne(mappedBy = "user", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    val student: Student? = null,
+    val student: StudentEntity? = null,
 
     @OneToOne(mappedBy = "user", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    var instructor: Instructor? = null,
+    var instructor: InstructorEntity? = null,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
-        other as User
+        other as UserEntity
 
         return id == other.id
     }
